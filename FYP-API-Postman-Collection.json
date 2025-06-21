@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "fyp-researchhub-api-collection",
+    "name": "FYP ResearchHub API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"student_id\": \"123456\",\n  \"password\": \"password123\",\n  \"school\": \"SoICT\",\n  \"department\": \"CS\",\n  \"role\": \"student\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/users/register", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "users", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/users/login", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "users", "login"] }
+          }
+        },
+        {
+          "name": "Profile (JWT)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" } ],
+            "url": { "raw": "http://localhost:5000/api/users/profile", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "users", "profile"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "List Projects",
+          "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/projects", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "projects"] } }
+        },
+        {
+          "name": "Get Project",
+          "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/projects/{{project_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "projects", "{{project_id}}"] } }
+        },
+        {
+          "name": "Create Project (JWT)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Sample Project\",\n  \"abstract\": \"This is a sample.\",\n  \"full_description\": \"Full desc...\",\n  \"user_id\": 1,\n  \"school\": \"SoICT\",\n  \"department\": \"CS\",\n  \"submission_year\": 2024\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/projects", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "projects"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Questions & Answers",
+      "item": [
+        { "name": "List Questions", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/questions", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "questions"] } } },
+        { "name": "Get Question", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/questions/{{question_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "questions", "{{question_id}}"] } } },
+        { "name": "Create Question (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Sample Question\",\n  \"content\": \"How does this work?\",\n  \"user_id\": 1,\n  \"school\": \"SoICT\",\n  \"tags\": \"AI,ML\"\n}" }, "url": { "raw": "http://localhost:5000/api/questions", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "questions"] } } },
+        { "name": "List Answers", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/questions/{{question_id}}/answers", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "questions", "{{question_id}}", "answers"] } } },
+        { "name": "Add Answer (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"user_id\": 1,\n  \"content\": \"This is an answer.\"\n}" }, "url": { "raw": "http://localhost:5000/api/questions/{{question_id}}/answers", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "questions", "{{question_id}}", "answers"] } } }
+      ]
+    },
+    {
+      "name": "Ratings",
+      "item": [
+        { "name": "Add/Update Rating (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"project_id\": 1,\n  \"rating\": 5,\n  \"review_text\": \"Great project!\"\n}" }, "url": { "raw": "http://localhost:5000/api/ratings", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ratings"] } } },
+        { "name": "Get Ratings", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/ratings/{{project_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ratings", "{{project_id}}"] } } }
+      ]
+    },
+    {
+      "name": "Views",
+      "item": [
+        { "name": "Log View", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"project_id\": 1\n}" }, "url": { "raw": "http://localhost:5000/api/views", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "views"] } } },
+        { "name": "Get Views", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/views/{{project_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "views", "{{project_id}}"] } } },
+        { "name": "Get View Count", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/views/{{project_id}}/count", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "views", "{{project_id}}", "count"] } } }
+      ]
+    },
+    {
+      "name": "Downloads",
+      "item": [
+        { "name": "Log Download (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"project_id\": 1,\n  \"user_id\": 1\n}" }, "url": { "raw": "http://localhost:5000/api/downloads", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "downloads"] } } },
+        { "name": "Get Downloads", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/downloads/{{project_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "downloads", "{{project_id}}"] } } },
+        { "name": "Get Download Count", "request": { "method": "GET", "url": { "raw": "http://localhost:5000/api/downloads/{{project_id}}/count", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "downloads", "{{project_id}}", "count"] } } }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "item": [
+        { "name": "Add Bookmark (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"project_id\": 1\n}" }, "url": { "raw": "http://localhost:5000/api/bookmarks", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "bookmarks"] } } },
+        { "name": "Remove Bookmark (JWT)", "request": { "method": "DELETE", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" } ], "url": { "raw": "http://localhost:5000/api/bookmarks/{{bookmark_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "bookmarks", "{{bookmark_id}}"] } } },
+        { "name": "List Bookmarks (JWT)", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" } ], "url": { "raw": "http://localhost:5000/api/bookmarks/me", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "bookmarks", "me"] } } }
+      ]
+    },
+    {
+      "name": "Votes (Q&A)",
+      "item": [
+        { "name": "Vote Question (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"question_id\": 1,\n  \"vote_type\": \"upvote\"\n}" }, "url": { "raw": "http://localhost:5000/api/votes/question", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "votes", "question"] } } },
+        { "name": "Vote Answer (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"answer_id\": 1,\n  \"vote_type\": \"upvote\"\n}" }, "url": { "raw": "http://localhost:5000/api/votes/answer", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "votes", "answer"] } } }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        { "name": "List Notifications (JWT)", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" } ], "url": { "raw": "http://localhost:5000/api/notifications/me", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "notifications", "me"] } } },
+        { "name": "Mark Notification as Read (JWT)", "request": { "method": "PUT", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" } ], "url": { "raw": "http://localhost:5000/api/notifications/{{notification_id}}/read", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "notifications", "{{notification_id}}", "read"] } } }
+      ]
+    },
+    {
+      "name": "Admin Actions",
+      "item": [
+        { "name": "Log Admin Action (JWT)", "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" }, { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"action_type\": \"project_approval\",\n  \"target_user_id\": 2,\n  \"target_project_id\": 1\n}" }, "url": { "raw": "http://localhost:5000/api/admin-actions", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "admin-actions"] } } },
+        { "name": "List Admin Actions (JWT)", "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{jwt}}" } ], "url": { "raw": "http://localhost:5000/api/admin-actions", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "admin-actions"] } } }
+      ]
+    },
+    {
+      "name": "Password Reset",
+      "item": [
+        { "name": "Request Password Reset", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@example.com\"\n}" }, "url": { "raw": "http://localhost:5000/api/password-reset/request", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "password-reset", "request"] } } },
+        { "name": "Reset Password", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"token\": \"<reset_token>\",\n  \"new_password\": \"newpassword123\"\n}" }, "url": { "raw": "http://localhost:5000/api/password-reset/reset", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "password-reset", "reset"] } } }
+      ]
+    }
+  ]
+} 
